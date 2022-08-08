@@ -1,0 +1,34 @@
+bool main(void)
+
+{
+  int local_14 [4];
+  
+  puts("***********************************");
+  puts("* \t     -Level00 -\t\t  *");
+  puts("***********************************");
+  printf("Password:");
+  __isoc99_scanf(&DAT_08048636,local_14);
+  if (local_14[0] != 0x149c) {
+    puts("\nInvalid Password!");
+  }
+  else {
+    puts("\nAuthenticated!");
+    system("/bin/sh");
+  }
+  return local_14[0] != 0x149c;
+}
+
+main:
+	int var[4]
+	puts("***********************************");
+	puts("* \t     -Level00 -\t\t  *");
+	puts("***********************************");
+	printf("Password:");
+	scanf(%d, var)
+	if (var[0] != 0x149c) # 5276
+		puts("invalid password");
+	else {
+		puts("\nAuthenticated!");
+		system("/bin/sh");
+	}
+	return var[0] != 0x149c;
