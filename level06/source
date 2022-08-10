@@ -1,0 +1,43 @@
+def auth(login, serial):
+	uint key
+	int i
+
+	# strcspn returns the index
+	login[strcspn(login, "\n")] = '\0' # Replaces \n with \0
+	if (strnlen(login, 32) < 6)
+		return 1
+	if (ptrace(PTRACE_TRACEME) == -1)
+		puts("\x1b[32m.---------------------------.");
+		puts("\x1b[31m| !! TAMPERING DETECTED !!  |");
+		puts("\x1b[32m\'---------------------------\'");
+		return 1
+	key = login[3] ^ 0x1337 + 0x5eeded;
+	i = 0
+	while (login[i])
+		if (login[i] < ' ')
+			return 1
+		key += (login[i] ^ key) % 0x539
+		i++
+	if key == serial
+		return 0
+	return 1
+
+def main:
+	char buf[32]
+	unsigned int serial;
+
+	puts("***********************************");
+	puts("*\t\tlevel06\t\t  *");
+	puts("***********************************");
+	printf("-> Enter Login: ");
+	fgets(buf, 0x20, stdin);
+	puts("***********************************");
+	puts("***** NEW ACCOUNT DETECTED ********");
+	puts("***********************************");
+	printf("-> Enter Serial: ");
+	__isoc99_scanf("%u", serial);
+	if (!auth(buf, serial))
+		puts("Authenticated!");
+		system("/bin/sh");
+		return 0
+	return 1
