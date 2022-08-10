@@ -1,0 +1,70 @@
+clear_stdin:
+	int i
+
+	while (i != -1)
+		i = getchar()
+		if (i == '\n')
+			return
+	return
+
+get_unum:
+	uint ret
+
+	fflush(stdout)
+	__isoc99_scanf("%u", ret)
+	clear_stdin()
+	return ret
+
+read_number(int param):
+	int ret
+
+	printf(" Index: ")
+	ret = get_unum()
+	printf(" Number at data[%u] is %u\n", ret, *(ret * 4 + param))
+	return 0
+
+store_number(int param)
+	uint number
+	uint index
+
+	printf(" Number: ")
+	number = get_unum()
+	printf(" Index: ")
+	index = get_unum()
+	if ((index % 3 == 0) || (number >> 0x18 == 0xb7)) {
+		puts(" *** ERROR! ***")
+		puts("   This index is reserved for wil!")
+		puts(" *** ERROR! ***")
+		return 1
+	}
+	*(uint *)(index * 4 + param) = number
+	return 0
+
+main(int argc, char **argv, char **envp):
+	int storage[100]
+	char *command
+
+	for (i = 0; i != 100; i++)
+		storage[i] = 0
+
+	void tmp = argv;
+	while (*tmp)
+		memset(*tmp, '\0', len(*tmp)) # Program is doing a while loop to get the len
+		tmp++
+
+	tmp = envp;
+	while (*tmp)
+		memset(*tmp, '\0', len(*tmp)) # Program is doing a while loop to get the len
+		tmp++
+
+	memset(stack, '\0', 3814)
+	puts("Welcome to wil's[...]")
+	while(1)
+		printf("Input command: ")
+		fgets(&command, 20, stdin)
+		if (command == "store")
+			store_number(storage)
+		if (command == "read")
+			read_number(storage)
+		if (command == "quit")
+			break
