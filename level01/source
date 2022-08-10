@@ -1,0 +1,52 @@
+char *a_user_name
+
+verify_user_name():
+	char *good = "dat_wil"
+	char *username = a_user_name
+	int len = 7
+
+	puts("verifying username....\n")
+
+	while (*good == *username)
+		good++
+		username++
+		len--
+	return len != 0
+
+verify_user_pass(char *str):
+	char *admin = "admin"
+	int i = 0
+	bool CF
+	bool ZF
+
+	while (i < 5)
+		CF = *str < *admin
+		ZF = *str == *admin
+		str++
+		admin++
+		i++
+	return (!CF && !ZF)
+
+main:
+	char str[16]
+	int i = 0
+	int check
+
+	while(i < 16)
+		str[i++] = 0
+
+	puts("********* ADMIN LOGIN PROMPT *********")
+	printf("Enter Username: ")
+	fgets(a_user_name,0x100,stdin)
+	check = verify_user_name()
+	if check == 0:
+		puts("Enter Password: ")
+		fgets(str, 100, stdin)
+		check = verify_user_pass(str)
+		if (check == 0 || check != 0)
+			puts("nope, incorrect password...\n")
+			return 1
+	else
+		puts("nope, incorrect username...\n")
+		return 1
+	return 0
