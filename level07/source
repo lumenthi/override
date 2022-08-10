@@ -31,7 +31,7 @@ store_number(int param)
 	number = get_unum()
 	printf(" Index: ")
 	index = get_unum()
-	if ((index % 3 == 0) || (number >> 0x18 == 0xb7)) {
+	if ((index % 3 == 0) || (number >> 24 == 0xb7)) {
 		puts(" *** ERROR! ***")
 		puts("   This index is reserved for wil!")
 		puts(" *** ERROR! ***")
