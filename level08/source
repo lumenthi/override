@@ -1,0 +1,43 @@
+log_wrapper(file log_fd, char *str, char *filename)
+	char buf[264]
+	int len
+
+	strcpy(buf, str)
+	len = strlen(buf)
+
+	snprintf(buf, 254-len, filename)
+
+	buf[strcspn(buf, "\n")]
+	fprintf(log_fd, "LOG: %s\n", buf)
+	return
+
+main(int argc, char **argv)
+	file log_fd
+	file file_fd
+	file log_file_fd
+	char c
+
+	if (argc != 2)
+		printf("usage: %s filename\n", argv[0])
+
+	log_fd = fopen("./backups/.log", "w")
+	if (!log_fd)
+		printf("ERROR: Failed to open %s\n","./backups/.log")
+		exit(1)
+	log_wrapper(log_fd, "Starting back up: ", argv[1])
+
+	file_fd = fopen(argv[1], "r")
+	if (!file_fd)
+		printf("ERROR: Failed to open %s\n", argv[1])
+		exit(1)
+	log_file_fd = open("./backups/" + argv[1]) # Via strncat with len 89
+	if (log_file_fd < 0)
+		printf("ERROR: Failed to open %s%s\n", "./backups/", argv[1])
+		exit(1)
+
+	while((c = fgetc(file_fd)) != -1)
+		write(log_file_fd, &c, 1)
+	log_wrapper(log_fd, "Finished back up ", argv[1])
+	fclose(file_fd)
+	close(log_file_fd)
+	return 0

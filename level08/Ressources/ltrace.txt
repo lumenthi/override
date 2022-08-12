@@ -1,0 +1,36 @@
+level08@OverRide:~$ cd /tmp
+level08@OverRide:/tmp$ mkdir backups
+level08@OverRide:/tmp$ chmod 777 backups
+level08@OverRide:/tmp$ echo "salut" > zizi.txt
+
+level08@OverRide:/tmp$ ltrace ~/level08 zizi.txt
+__libc_start_main(0x4009f0, 2, 0x7fffffffe6b8, 0x400c60, 0x400cf0 <unfinished ...>
+fopen("./backups/.log", "w")                            = 0x603010
+strcpy(0x7fffffffe400, "Starting back up: ")            = 0x7fffffffe400
+
+snprintf(NULL, 140737488349413, "")                     = 8
+strcspn("Starting back up: zizi.txt", "\n")             = 26
+fprintf(0x603010, "LOG: %s\n", "Starting back up: zizi.txt") = 32
+fopen("zizi.txt", "r")                                  = 0x603250
+strncat(0x7fffffffe560, 0x7fffffffe8e5, 89, 0x7fffffffe8e5, 0) = 0x7fffffffe560
+open("./backups/zizi.txt", 193, 0660)                   = 5
+fgetc(0x603250)                                         = 's'
+write(5, "s", 1)                                        = 1
+fgetc(0x603250)                                         = 'a'
+write(5, "a", 1)                                        = 1
+fgetc(0x603250)                                         = 'l'
+write(5, "l", 1)                                        = 1
+fgetc(0x603250)                                         = 'u'
+write(5, "u", 1)                                        = 1
+fgetc(0x603250)                                         = 't'
+write(5, "t", 1)                                        = 1
+fgetc(0x603250)                                         = '\n'
+write(5, "\n", 1)                                       = 1
+fgetc(0x603250)                                         = 'EOF'
+strcpy(0x7fffffffe400, "Finished back up ")             = 0x7fffffffe400
+snprintf(NULL, 140737488349413, "")                     = 8
+strcspn("Finished back up zizi.txt", "\n")              = 25
+fprintf(0x603010, "LOG: %s\n", "Finished back up zizi.txt") = 31
+fclose(0x603250)                                        = 0
+close(5)                                                = 0
++++ exited (status 0) +++
