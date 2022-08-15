@@ -44,6 +44,7 @@ Starting program: /home/users/level06/level06
                ff
                -- # Put 0x00 instead of 0xff
 080487ba 83 f8 00        CMP        EAX,0x0
+
 ================================================================================
 
 (gdb) b *0x08048866

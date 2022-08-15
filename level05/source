@@ -4,13 +4,10 @@ main:
 	int len;
 
 	fgets(str, 100, stdin)
-	while (1)
-		len = 0;
-		while (str[len] != 0)
-			len++;
-		if (i == len)
-			printf(str)
-			exit(0)
+	len = strlen(str)
+	while (i < len)
 		if (str[i] > '@' && str[i] < '[')
 			str[i] = str[i] ^ 0x20 # LOWERCASE
 		i++;
+	printf(str)
+	exit(0)

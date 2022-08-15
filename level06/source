@@ -18,8 +18,10 @@ def auth(login, serial):
 			return 1
 		key += (login[i] ^ key) % 0x539
 		i++
+
 	if key == serial
 		return 0
+	
 	return 1
 
 def main:
